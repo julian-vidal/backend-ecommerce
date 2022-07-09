@@ -1,9 +1,4 @@
-const express = require("express");
 const fs = require('fs');
-const app = express();
-const PORT = 8080;
-
-
 
 class Contenedor {
   constructor(filename) {
@@ -32,7 +27,7 @@ class Contenedor {
 
   /* Metodos requeridos por la consigna */
   async getAll() {
-    return await this.readFile();
+    console.log(await this.readFile())
   }
 
   async getById(id) {
@@ -105,32 +100,14 @@ class Contenedor {
 
 const products = new Contenedor('productos.txt');
 
-app.get('/', (req, res) => {
-    res.send("Hello World")
-})
-
-app.get('/productos', (req,res) => {
-    (
-        async function() {
-           res.send(await products.getAll())
-        }
-    )();
-});
+// products.save({
+//   tittle: "Shirt",
+//   price: 30,
+//   thumbnail: "https://via.placeholder.com/50"
+// })
 
 
-app.get('/productoRandom', (req,res) => {
-    (
-        async function() {
-            let data = await products.readFile();
-            let randomId = Math.floor(Math.random() *(data.length));
-            res.send(data[randomId])
-        }
-    )();
-})
-
-
-const server = app.listen(PORT, () => {
-    console.log(`Server is listening at ${PORT}`)
-})
-
-app.on("error", err => console.log(err));
+// products.getAll();
+// products.getById(11);
+// products.deleteById(5);
+// products.deleteAll()
